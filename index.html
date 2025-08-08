@@ -3,105 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IslamiyatMastery</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Islamiyat Quiz AI</title>
   <style>
     body {
-      margin: 0;
+      background-color: #121212;
+      color: #f0f0f0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-      color: #ffffff;
-      padding: 2rem;
-      text-align: center;
+      padding: 20px;
     }
-
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      color: #ffffff;
+    .container {
+      max-width: 700px;
+      margin: auto;
     }
-
-    header p {
-      font-size: 1.2rem;
-      color: #cccccc;
+    button {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
     }
-
-    nav {
-      margin: 2rem 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
+    button:hover {
+      background-color: #555;
     }
-
-    nav a {
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: bold;
-      background-color: #2a2a2a;
-      padding: 0.75rem 1.25rem;
-      border-radius: 6px;
-      border: 2px solid #444;
-      transition: 0.2s ease;
-    }
-
-    nav a:hover {
-      background-color: #444;
-      text-decoration: underline;
-    }
-
-    .section {
-      background-color: #1f1f1f;
-      border: 2px solid #333;
-      padding: 1.5rem;
-      margin: 1rem auto;
-      max-width: 800px;
+    .question {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #1e1e1e;
       border-radius: 8px;
-      box-shadow: 0 0 10px #000;
     }
-
-    .section h2 {
-      margin-top: 0;
-      font-size: 1.5rem;
-      border-bottom: 1px solid #333;
-      padding-bottom: 0.5rem;
-      color: #ffffff;
+    .options button {
+      display: block;
+      margin: 8px 0;
+      background-color: #222;
+      border-radius: 4px;
+      padding: 8px;
+      text-align: left;
     }
-
-    footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #777;
+    .correct {
+      background-color: #2e7d32 !important;
+      color: #fff;
+    }
+    .wrong {
+      background-color: #c62828 !important;
+      color: #fff;
+    }
+    .explanation {
+      margin-top: 10px;
+      font-style: italic;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>IslamiyatMastery</h1>
-    <p>Study smarter. Learn deeper. Excel faster.</p>
-  </header>
-
-  <nav>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="quiz.html">Take a Quiz</a>
-    <a href="checkout.html">Subscribe</a>
-    <a href="chapter1.html">Chapter 1</a>
-    <a href="chapter2.html">Chapter 2</a>
-    <a href="chapter3.html">Chapter 3</a>
-    <a href="chapter4.html">Chapter 4</a>
-    <a href="chapter5.html">Chapter 5</a>
-    <a href="chapter6.html">Chapter 6</a>
-    <a href="chapter7.html">Chapter 7</a>
-    <a href="chapter8.html">Chapter 8</a>
-  </nav>
-
-  <div class="section">
-    <h2>Welcome</h2>
-    <p>This is your central hub. Choose a chapter to begin learning, take a quiz to test your knowledge, or subscribe for premium features.</p>
+  <div class="container">
+    <h1>🧠 Islamiyat Quiz Generator</h1>
+    <button onclick="generateQuiz()">Start Quiz</button>
+    <div id="quiz"></div>
   </div>
 
-  <footer>
-    &copy; 2025 IslamiyatMastery. Built with purpose and precision.
-  </footer>
+  <script>
+    const questionBank = [
+      {
+        question: "What is the first Surah in the Quran?",
+        options: ["Al-Baqarah", "Al-Fatiha", "An-Nas", "Al-Ikhlas"],
+        answer: "Al-Fatiha",
+        explanation: "Surah Al-Fatiha is the opening chapter of the Quran."
+      },
+      {
+        question: "Who was the first Prophet?",
+        options: ["Musa", "Isa", "Adam", "Nuh"],
+        answer: "Adam",
+        explanation: "Prophet Adam (AS) was the first human and prophet."
+      },
+      {
+        question: "Which Prophet built the Kaaba with his son?",
+        options: ["Ibrahim", "Ismail", "Musa", "Nuh"],
+        answer: "Ibrahim",
+        explanation: "Prophet Ibrahim (AS) and his son Ismail (AS) built the Kaaba."
+      },
+      {
+        question: "What is the meaning of 'Islam'?",
+        options: ["Peace", "Submission", "Faith", "Prayer"],
+        answer: "Submission",
+        explanation: "Islam means submission to the will of Allah."
+      },
+      {
+        question: "How many pillars of Islam are there?",
+        options: ["3", "4", "5", "6"],
+        answer: "5",
+        explanation: "There are five pillars of Islam: Shahada, Salah, Zakat, Sawm, and Hajj."
+      }
+    ];
+
+    function generateQuiz() {
+      const quizDiv = document.getElementById('quiz');
+      quizDiv.innerHTML = '';
+
+      questionBank.forEach((q, index) => {
+        const qDiv = document.createElement('div');
+        qDiv.className = 'question';
+        qDiv.innerHTML = `<h3>Q${index + 1}: ${q.question}</h3>`;
+
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'options';
+
+        q.options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.textContent = opt;
+          btn.onclick = () => {
+            if (btn.classList.contains('correct') || btn.classList.contains('wrong')) return;
+
+            if (opt === q.answer) {
+              btn.classList.add('correct');
+            } else {
+              btn.classList.add('wrong');
+            }
+
+            const explanation = document.createElement('p');
+            explanation.className = 'explanation';
+            explanation.textContent = `Explanation: ${q.explanation}`;
+            qDiv.appendChild(explanation);
+          };
+          optionsDiv.appendChild(btn);
+        });
+
+        qDiv.appendChild(optionsDiv);
+        quizDiv.appendChild(qDiv);
+      });
+    }
+  </script>
 </body>
 </html>
