@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 8 – Islamiyat Mastery</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="particles-js"></div>
+  <div class="content">
+    <h1>Chapter 8: Islamic History and Civilization</h1>
+    <p>Answer the questions below:</p>
+
+    <div class="question">
+      <p><strong>1. Which city was the capital of the Abbasid Caliphate?</strong></p>
+      <button onclick="checkAnswer(this, false)">Damascus</button>
+      <button onclick="checkAnswer(this, true)">Baghdad</button>
+      <button onclick="checkAnswer(this, false)">Cairo</button>
+    </div>
+
+    <div class="question">
+      <p><strong>2. Who was the famous Muslim scholar in medicine?</strong></p>
+      <button onclick="checkAnswer(this, true)">Ibn Sina</button>
+      <button onclick="checkAnswer(this, false)">Al-Ghazali</button>
+      <button onclick="checkAnswer(this, false)">Al-Khwarizmi</button>
+    </div>
+
+    <div class="question">
+      <p><strong>3. What was the House of Wisdom?</strong></p>
+      <button onclick="checkAnswer(this, true)">A major center of learning in Baghdad</button>
+      <button onclick="checkAnswer(this, false)">A mosque in Cairo</button>
+      <button onclick="checkAnswer(this, false)">A palace in Damascus</button>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        size: { value: 3 },
+        color: { value: "#00ffff" },
+        line_linked: { enable: true, color: "#00ffff" },
+        move: { speed: 2 }
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: "repulse" }
+        }
+      }
+    });
+
+    function checkAnswer(button, isCorrect) {
+      if (isCorrect) {
+        button.style.backgroundColor = "#00ff00";
+        button.innerText += " ✓";
+      } else {
+        button.style.backgroundColor = "#ff0000";
+        button.innerText += " ✗";
+      }
+      const parent = button.parentElement;
+      const buttons = parent.querySelectorAll("button");
+      buttons.forEach(btn => btn.disabled = true);
+    }
+  </script>
+</body>
+</html>
