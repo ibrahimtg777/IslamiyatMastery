@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Islamiyat Mastery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #121212;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .auth-box {
+      background-color: #1e1e1e;
+      border: 2px solid #333;
+      padding: 1.5rem;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 2rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      background-color: #2a2a2a;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #3a3a3a;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    .status {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Islamiyat Mastery</h1>
+
+  <div class="auth-box">
+    <h2>Sign Up</h2>
+    <input type="email" id="signupEmail" placeholder="Email">
+    <input type="password" id="signupPassword" placeholder="Password">
+    <button onclick="signup()">Sign Up</button>
+  </div>
+
+  <div class="auth-box">
+    <h2>Log In</h2>
+    <input type="email" id="loginEmail" placeholder="Email">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="login()">Log In</button>
+  </div>
+
+  <div class="status" id="statusMessage"></div>
+
+  <script type="module">
+    // Import Firebase SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyD2vRHSEbEV9xqAJRUeaMZvStsIdDyRVRU",
+      authDomain: "islamiyatmastery.firebaseapp.com",
+      projectId: "islamiyatmastery",
+      storageBucket: "islamiyatmastery.appspot.com",
+      messagingSenderId: "484612889893",
+      appId: "1:484612889893:web:27b7d557cc10852408cecc",
+      measurementId: "G-8HF5K5X30P"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+
+    // Helper to show status
+    function showStatus(message, success = true) {
+      const status = document.getElementById("statusMessage");
+      status.textContent = message;
+      status.style.color = success ? "#0f0" : "#f33";
+    }
+
+    // Signup function
+    window.signup = function() {
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+          console.log("Signup successful:", userCredential.user);
+          showStatus("Signup successful!");
+        })
+        .catch(error => {
+          console.error("Signup error:", error.message);
+          showStatus("Signup failed: " + error.message, false);
+        });
+    }
+
+    // Login function
+    window.login = function() {
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+          console.log("Login successful:", userCredential.user);
+          showStatus("Login successful!");
+        })
+        .catch(error => {
+          console.error("Login error:", error.message);
+          showStatus("Login failed: " + error.message, false);
+        });
+    }
+  </script>
+
+</body>
+</html>
