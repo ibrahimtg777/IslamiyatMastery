@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 4 – Islamiyat Mastery</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="particles-js"></div>
+  <div class="content">
+    <h1>Chapter 4: Hadith</h1>
+    <p>Answer the questions below:</p>
+
+    <div class="question">
+      <p><strong>1. What is a Hadith?</strong></p>
+      <button onclick="checkAnswer(this, true)">Sayings and actions of the Prophet (PBUH)</button>
+      <button onclick="checkAnswer(this, false)">Verses of the Qur'an</button>
+      <button onclick="checkAnswer(this, false)">Stories of Sahaba</button>
+    </div>
+
+    <div class="question">
+      <p><strong>2. Which book is a famous collection of Hadith?</strong></p>
+      <button onclick="checkAnswer(this, true)">Sahih Bukhari</button>
+      <button onclick="checkAnswer(this, false)">Tafsir Ibn Kathir</button>
+      <button onclick="checkAnswer(this, false)">Fiqh-us-Sunnah</button>
+    </div>
+
+    <div class="question">
+      <p><strong>3. Who compiled Sahih Muslim?</strong></p>
+      <button onclick="checkAnswer(this, true)">Imam Muslim</button>
+      <button onclick="checkAnswer(this, false)">Imam Bukhari</button>
+      <button onclick="checkAnswer(this, false)">Imam Abu Hanifa</button>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        size: { value: 3 },
+        color: { value: "#00ffff" },
+        line_linked: { enable: true, color: "#00ffff" },
+        move: { speed: 2 }
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: "repulse" }
+        }
+      }
+    });
+
+    function checkAnswer(button, isCorrect) {
+      if (isCorrect) {
+        button.style.backgroundColor = "#00ff00";
+        button.innerText += " ✓";
+      } else {
+        button.style.backgroundColor = "#ff0000";
+        button.innerText += " ✗";
+      }
+      const parent = button.parentElement;
+      const buttons = parent.querySelectorAll("button");
+      buttons.forEach(btn => btn.disabled = true);
+    }
+  </script>
+</body>
+</html>
