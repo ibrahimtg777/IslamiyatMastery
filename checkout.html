@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout – Islamiyat Mastery</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <div class="content">
+    <h1>Unlock Full Access</h1>
+    <p>Pay once to access all chapters, quizzes, and flashcards.</p>
+    <button id="payBtn">Pay PKR 500</button>
+  </div>
+
+  <script>
+    const stripe = Stripe("YOUR_STRIPE_PUBLIC_KEY");
+
+    document.getElementById("payBtn").addEventListener("click", async () => {
+      const response = await fetch("/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ uid: localStorage.getItem("uid") })
+      });
+      const session = await response.json();
+      stripe.redirectToCheckout({ sessionId: session.id });
+    });
+  </script>
+</body>
+</html>
