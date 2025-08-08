@@ -1,79 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IslamiyatMastery</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header>
-    <h1>IslamiyatMastery</h1>
-    <p>A place where students can study with ease</p>
-  </header>
+<script type="module">
+  // Import Firebase core + Auth
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-  <nav>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="checkout.html">Subscribe</a>
-  </nav>
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyD2vRHSEbEV9xqAJRUeaMZvStsIdDyRVRU",
+    authDomain: "islamiyatmastery.firebaseapp.com",
+    projectId: "islamiyatmastery",
+    storageBucket: "islamiyatmastery.appspot.com", // 🔧 fixed typo here
+    messagingSenderId: "484612889893",
+    appId: "1:484612889893:web:27b7d557cc10852408cecc",
+    measurementId: "G-8HF5K5X30P"
+  };
 
-  <div class="auth-buttons">
-    <button onclick="signUp()">Sign Up</button>
-    <button onclick="logIn()">Log In</button>
-    <button onclick="logOut()">Log Out</button>
-  </div>
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth(app);
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-    import {
-      getAuth,
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      signOut,
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+  // Auth functions
+  window.signUp = function () {
+    const email = prompt("Enter email:");
+    const password = prompt("Enter password:");
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => alert("Signed up successfully!"))
+      .catch(error => alert("Error: " + error.message));
+  };
 
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
+  window.logIn = function () {
+    const email = prompt("Enter email:");
+    const password = prompt("Enter password:");
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => alert("Logged in successfully!"))
+      .catch(error => alert("Error: " + error.message));
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  window.logOut = function () {
+    signOut(auth)
+      .then(() => alert("Logged out."))
+      .catch(error => alert("Error: " + error.message));
+  };
 
-    window.signUp = function () {
-      const email = prompt("Enter email:");
-      const password = prompt("Enter password:");
-      createUserWithEmailAndPassword(auth, email, password)
-        .then(() => alert("Signed up successfully!"))
-        .catch(error => alert("Error: " + error.message));
-    };
-
-    window.logIn = function () {
-      const email = prompt("Enter email:");
-      const password = prompt("Enter password:");
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => alert("Logged in successfully!"))
-        .catch(error => alert("Error: " + error.message));
-    };
-
-    window.logOut = function () {
-      signOut(auth)
-        .then(() => alert("Logged out."))
-        .catch(error => alert("Error: " + error.message));
-    };
-
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        console.log("Logged in as:", user.email);
-      } else {
-        console.log("No user logged in.");
-      }
-    });
-  </script>
-</body>
-</html>
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      console.log("Logged in as:", user.email);
+    } else {
+      console.log("No user logged in.");
+    }
+  });
+</script>
