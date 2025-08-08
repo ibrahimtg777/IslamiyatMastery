@@ -4,57 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IslamiyatMastery</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #121212;
-      color: #f0f0f0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-    .auth-buttons button {
-      background-color: #1f1f1f;
-      color: #fff;
-      border: 2px solid #333;
-      padding: 0.5rem 1rem;
-      margin: 0.5rem;
-      cursor: pointer;
-    }
-    .auth-buttons button:hover {
-      background-color: #333;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>IslamiyatMastery</h1>
-  <p>A place where students can study with ease</p>
+  <header>
+    <h1>IslamiyatMastery</h1>
+    <p>A place where students can study with ease</p>
+  </header>
+
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="checkout.html">Subscribe</a>
+  </nav>
 
   <div class="auth-buttons">
     <button onclick="signUp()">Sign Up</button>
     <button onclick="logIn()">Log In</button>
+    <button onclick="logOut()">Log Out</button>
   </div>
 
   <script type="module">
-    // Import Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
     import {
       getAuth,
       createUserWithEmailAndPassword,
-      signInWithEmailAndPassword
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
-    // Your Firebase config
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -71,17 +49,31 @@
       const email = prompt("Enter email:");
       const password = prompt("Enter password:");
       createUserWithEmailAndPassword(auth, email, password)
-        .then(userCredential => alert("Signed up!"))
-        .catch(error => alert(error.message));
+        .then(() => alert("Signed up successfully!"))
+        .catch(error => alert("Error: " + error.message));
     };
 
     window.logIn = function () {
       const email = prompt("Enter email:");
       const password = prompt("Enter password:");
       signInWithEmailAndPassword(auth, email, password)
-        .then(userCredential => alert("Logged in!"))
-        .catch(error => alert(error.message));
+        .then(() => alert("Logged in successfully!"))
+        .catch(error => alert("Error: " + error.message));
     };
+
+    window.logOut = function () {
+      signOut(auth)
+        .then(() => alert("Logged out."))
+        .catch(error => alert("Error: " + error.message));
+    };
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        console.log("Logged in as:", user.email);
+      } else {
+        console.log("No user logged in.");
+      }
+    });
   </script>
 </body>
 </html>
