@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 6 – Islamiyat Mastery</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="particles-js"></div>
+  <div class="content">
+    <h1>Chapter 6: Pillars of Islam</h1>
+    <p>Answer the questions below:</p>
+
+    <div class="question">
+      <p><strong>1. How many pillars of Islam are there?</strong></p>
+      <button onclick="checkAnswer(this, true)">5</button>
+      <button onclick="checkAnswer(this, false)">6</button>
+      <button onclick="checkAnswer(this, false)">4</button>
+    </div>
+
+    <div class="question">
+      <p><strong>2. Which pillar involves fasting during Ramadan?</strong></p>
+      <button onclick="checkAnswer(this, false)">Zakat</button>
+      <button onclick="checkAnswer(this, true)">Sawm</button>
+      <button onclick="checkAnswer(this, false)">Hajj</button>
+    </div>
+
+    <div class="question">
+      <p><strong>3. What is the first pillar of Islam?</strong></p>
+      <button onclick="checkAnswer(this, true)">Shahadah</button>
+      <button onclick="checkAnswer(this, false)">Salat</button>
+      <button onclick="checkAnswer(this, false)">Zakat</button>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        size: { value: 3 },
+        color: { value: "#00ffff" },
+        line_linked: { enable: true, color: "#00ffff" },
+        move: { speed: 2 }
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: "repulse" }
+        }
+      }
+    });
+
+    function checkAnswer(button, isCorrect) {
+      if (isCorrect) {
+        button.style.backgroundColor = "#00ff00";
+        button.innerText += " ✓";
+      } else {
+        button.style.backgroundColor = "#ff0000";
+        button.innerText += " ✗";
+      }
+      const parent = button.parentElement;
+      const buttons = parent.querySelectorAll("button");
+      buttons.forEach(btn => btn.disabled = true);
+    }
+  </script>
+</body>
+</html>
